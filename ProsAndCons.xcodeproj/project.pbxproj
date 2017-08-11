@@ -1,0 +1,328 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		438B45541F3D73C3003BD694 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438B45531F3D73C3003BD694 /* AppDelegate.swift */; };
+		438B45561F3D73C3003BD694 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438B45551F3D73C3003BD694 /* ViewController.swift */; };
+		438B45591F3D73C3003BD694 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438B45571F3D73C3003BD694 /* Main.storyboard */; };
+		438B455C1F3D73C3003BD694 /* ProsAndCons.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 438B455A1F3D73C3003BD694 /* ProsAndCons.xcdatamodeld */; };
+		438B455E1F3D73C3003BD694 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 438B455D1F3D73C3003BD694 /* Assets.xcassets */; };
+		438B45611F3D73C3003BD694 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438B455F1F3D73C3003BD694 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		438B45501F3D73C3003BD694 /* ProsAndCons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProsAndCons.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		438B45531F3D73C3003BD694 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		438B45551F3D73C3003BD694 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		438B45581F3D73C3003BD694 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		438B455B1F3D73C3003BD694 /* ProsAndCons.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProsAndCons.xcdatamodel; sourceTree = "<group>"; };
+		438B455D1F3D73C3003BD694 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		438B45601F3D73C3003BD694 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		438B45621F3D73C3003BD694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		438B454D1F3D73C3003BD694 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		438B45471F3D73C3003BD694 = {
+			isa = PBXGroup;
+			children = (
+				438B45521F3D73C3003BD694 /* ProsAndCons */,
+				438B45511F3D73C3003BD694 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		438B45511F3D73C3003BD694 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				438B45501F3D73C3003BD694 /* ProsAndCons.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		438B45521F3D73C3003BD694 /* ProsAndCons */ = {
+			isa = PBXGroup;
+			children = (
+				438B45531F3D73C3003BD694 /* AppDelegate.swift */,
+				438B45551F3D73C3003BD694 /* ViewController.swift */,
+				438B45571F3D73C3003BD694 /* Main.storyboard */,
+				438B455D1F3D73C3003BD694 /* Assets.xcassets */,
+				438B455F1F3D73C3003BD694 /* LaunchScreen.storyboard */,
+				438B45621F3D73C3003BD694 /* Info.plist */,
+				438B455A1F3D73C3003BD694 /* ProsAndCons.xcdatamodeld */,
+			);
+			path = ProsAndCons;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		438B454F1F3D73C3003BD694 /* ProsAndCons */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 438B45651F3D73C3003BD694 /* Build configuration list for PBXNativeTarget "ProsAndCons" */;
+			buildPhases = (
+				438B454C1F3D73C3003BD694 /* Sources */,
+				438B454D1F3D73C3003BD694 /* Frameworks */,
+				438B454E1F3D73C3003BD694 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ProsAndCons;
+			productName = ProsAndCons;
+			productReference = 438B45501F3D73C3003BD694 /* ProsAndCons.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		438B45481F3D73C3003BD694 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = NateDukatz;
+				TargetAttributes = {
+					438B454F1F3D73C3003BD694 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = Y2PWUH922J;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 438B454B1F3D73C3003BD694 /* Build configuration list for PBXProject "ProsAndCons" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 438B45471F3D73C3003BD694;
+			productRefGroup = 438B45511F3D73C3003BD694 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				438B454F1F3D73C3003BD694 /* ProsAndCons */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		438B454E1F3D73C3003BD694 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				438B45611F3D73C3003BD694 /* LaunchScreen.storyboard in Resources */,
+				438B455E1F3D73C3003BD694 /* Assets.xcassets in Resources */,
+				438B45591F3D73C3003BD694 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		438B454C1F3D73C3003BD694 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				438B455C1F3D73C3003BD694 /* ProsAndCons.xcdatamodeld in Sources */,
+				438B45561F3D73C3003BD694 /* ViewController.swift in Sources */,
+				438B45541F3D73C3003BD694 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		438B45571F3D73C3003BD694 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				438B45581F3D73C3003BD694 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		438B455F1F3D73C3003BD694 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				438B45601F3D73C3003BD694 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		438B45631F3D73C3003BD694 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		438B45641F3D73C3003BD694 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		438B45661F3D73C3003BD694 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Y2PWUH922J;
+				INFOPLIST_FILE = ProsAndCons/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.NateDukatz.ProsAndCons;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		438B45671F3D73C3003BD694 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Y2PWUH922J;
+				INFOPLIST_FILE = ProsAndCons/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.NateDukatz.ProsAndCons;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		438B454B1F3D73C3003BD694 /* Build configuration list for PBXProject "ProsAndCons" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				438B45631F3D73C3003BD694 /* Debug */,
+				438B45641F3D73C3003BD694 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		438B45651F3D73C3003BD694 /* Build configuration list for PBXNativeTarget "ProsAndCons" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				438B45661F3D73C3003BD694 /* Debug */,
+				438B45671F3D73C3003BD694 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		438B455A1F3D73C3003BD694 /* ProsAndCons.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				438B455B1F3D73C3003BD694 /* ProsAndCons.xcdatamodel */,
+			);
+			currentVersion = 438B455B1F3D73C3003BD694 /* ProsAndCons.xcdatamodel */;
+			path = ProsAndCons.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 438B45481F3D73C3003BD694 /* Project object */;
+}
