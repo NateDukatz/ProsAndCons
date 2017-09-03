@@ -8,11 +8,12 @@
     </entity>
     <entity name="PCItemList" representedClassName="PCItemList" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weightPlusMinus" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="pcItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="PCItem" inverseName="pcItemList" inverseEntity="PCItem" syncable="YES"/>
     </entity>
     <elements>
         <element name="PCItem" positionX="-45" positionY="0" width="128" height="105"/>
-        <element name="PCItemList" positionX="-45" positionY="27" width="128" height="90"/>
+        <element name="PCItemList" positionX="-45" positionY="27" width="128" height="105"/>
     </elements>
 </model>

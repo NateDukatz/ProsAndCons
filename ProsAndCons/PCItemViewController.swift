@@ -293,47 +293,7 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
             }
         }
     }
-    
-    // MARK: - Fetch Results Delegate Methods
-    
-    
-    
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        prosTableView.beginUpdates()
-//    }
-//    
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-//        switch type {
-//        case .update:
-//            guard let indexPath = indexPath else { return }
-//            prosTableView.reloadRows(at: [indexPath], with: .none)
-//        case .delete:
-//            guard let indexPath = indexPath else { return }
-//            prosTableView.deleteRows(at: [indexPath], with: .none)
-//        case .insert:
-//            guard let newIndexPath = newIndexPath else { return }
-//            prosTableView.insertRows(at: [newIndexPath], with: .none)
-//        case .move:
-//            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
-//            prosTableView.deleteRows(at: [indexPath], with: .none)
-//            prosTableView.insertRows(at: [newIndexPath], with: .none)
-//        }
-//    }
-//    
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-//        switch type {
-//        case .insert:
-//            prosTableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
-//        case .delete:
-//            prosTableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
-//        default:
-//            break
-//        }
-//    }
-//    
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        prosTableView.endUpdates()
-//    }
+
 
 }
 
