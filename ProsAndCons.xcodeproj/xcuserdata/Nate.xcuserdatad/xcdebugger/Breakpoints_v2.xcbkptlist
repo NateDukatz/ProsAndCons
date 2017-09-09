@@ -9,78 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ProsAndCons/PCItemViewController.swift"
-            timestampString = "525933619.384338"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ProsAndCons/PCItemListTableViewController.swift"
-            timestampString = "526152769.726107"
+            timestampString = "526667465.888007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "PCItemListTableViewController"
             landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ProsAndCons/PCItemListTableViewController.swift"
-            timestampString = "526152769.726107"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "PCItemListTableViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ProsAndCons.PCItemListTableViewController.controller (__ObjC.NSFetchedResultsController&lt;__ObjC.NSFetchRequestResult&gt;, didChange : Any, at : Swift.Optional&lt;Foundation.IndexPath&gt;, for : __C.NSFetchedResultsChangeType, newIndexPath : Swift.Optional&lt;Foundation.IndexPath&gt;) -&gt; ()"
-                  moduleName = "ProsAndCons"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Nate/Documents/IOS/DevMountain/ProsAndCons/ProsAndCons/PCItemListTableViewController.swift"
-                  timestampString = "526060287.583748"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "590">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ProsAndCons.PCItemListTableViewController.controller (__ObjC.NSFetchedResultsController&lt;__ObjC.NSFetchRequestResult&gt;, didChange : Any, at : Swift.Optional&lt;Foundation.IndexPath&gt;, for : __C.NSFetchedResultsChangeType, newIndexPath : Swift.Optional&lt;Foundation.IndexPath&gt;) -&gt; ()"
-                  moduleName = "ProsAndCons"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Nate/Documents/IOS/DevMountain/ProsAndCons/ProsAndCons/PCItemListTableViewController.swift"
-                  timestampString = "526060287.58723"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "136"
-                  endingLineNumber = "136"
-                  offsetFromSymbolStart = "889">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,11 +26,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProsAndCons/PCItemListTableViewController.swift"
-            timestampString = "526152313.555976"
+            timestampString = "526667465.888007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "PCItemListTableViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ProsAndCons/PCItemListTableViewController.swift"
+            timestampString = "526667465.888007"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "tableView(_:commit:forRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProsAndCons/PCItemListTableViewController.swift"
-            timestampString = "526152769.726107"
+            timestampString = "526667465.888007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
             landmarkName = "tableView(_:commit:forRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ProsAndCons/PCItemListTableViewController.swift"
-            timestampString = "526152769.726107"
+            timestampString = "526667465.888007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "tableView(_:commit:forRowAt:)"
             landmarkType = "7">
          </BreakpointContent>

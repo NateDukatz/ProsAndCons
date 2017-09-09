@@ -11,22 +11,33 @@ import CoreData
 
 class PCItemListTableViewController: UITableViewController {
 
-    var pcItemLists = [PCItemList]()
+//    var pcItemLists = [PCItemList]()
+//    
+//    func reloadArray() {
+//        pcItemLists = PCItemListController.shared.pcItemLists
+//        pcItemLists = PCItemListController.shared.pcItemLists.sorted(by: { $0.order < $1.order })
+//    }
     
-    func reloadArray() {
-        pcItemLists = PCItemListController.shared.pcItemLists
-        pcItemLists = PCItemListController.shared.pcItemLists.sorted(by: { $0.order < $1.order })
-    }
    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let label = UILabel()
+        label.numberOfLines = 1
+        
         navigationItem.leftBarButtonItem = editButtonItem
+        
+        tableView.tableFooterView = UIView()
 
         //PCItemListController.shared.fetchedResultsController.delegate = self
         
-       reloadArray()
+//       reloadArray()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
 
     @IBAction func addNewListButtonTapped(_ sender: Any) {
@@ -43,14 +54,15 @@ class PCItemListTableViewController: UITableViewController {
             
             if let nameTextField = alertController.textFields?.first {
                 let name = nameTextField.text ?? ""
-                let order = Int16(self.pcItemLists.count)
+                let order = Int16(PCItemListController.shared.pcItemLists.count)
                 
                 PCItemListController.shared.create(PCItemListWithName: name, order: order)
                 
-                self.reloadArray()
+//                self.reloadArray()
                 
                 DispatchQueue.main.async(execute: {
-                    self.tableView.reloadData()
+                    self.tableView.insertRows(at: [IndexPath(row: Int(order), section: 0)], with: .automatic)
+//                    self.tableView.reloadData()
                 })
             }
         }))
@@ -62,17 +74,18 @@ class PCItemListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return pcItemLists.count
+        return PCItemListController.shared.pcItemLists.count
 
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PCItemListCell", for: indexPath) as? PCItemListTableViewCell else { return PCItemListTableViewCell() }
         
-        let pcItemList = pcItemLists[indexPath.row]
+        let pcItemList = PCItemListController.shared.pcItemLists[indexPath.row]
 
         
         cell.update(withList: pcItemList)
+        
 
         return cell
     }
@@ -91,9 +104,9 @@ class PCItemListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
            // guard let pcItemLists = PCItemListController.shared.fetchedResultsController.fetchedObjects else { return }
-            let pcItemList = pcItemLists[indexPath.row]
+            let pcItemList = PCItemListController.shared.pcItemLists[indexPath.row]
             PCItemListController.shared.delete(pcItemList: pcItemList)
-            reloadArray()
+//            reloadArray()
             tableView.deleteRows(at: [indexPath], with: .fade)
            
         }
@@ -105,8 +118,8 @@ class PCItemListTableViewController: UITableViewController {
 //        let pcItemList1 = PCItemListController.shared.fetchedResultsController.object(at: fromIndexPath)
 //        let pcItemList2 = PCItemListController.shared.fetchedResultsController.object(at: to)
         
-        let pcItemList1 = pcItemLists[fromIndexPath.row]
-        let pcItemList2 = pcItemLists[to.row]
+        let pcItemList1 = PCItemListController.shared.pcItemLists[fromIndexPath.row]
+        let pcItemList2 = PCItemListController.shared.pcItemLists[to.row]
        
         let temp = pcItemList1.order
         pcItemList1.order = pcItemList2.order

@@ -23,11 +23,7 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     
     let pcItemController = PCItemController()
     
-    var pcItemList: PCItemList? {
-        didSet {
-            //reloadTables()
-        }
-    }
+    var pcItemList: PCItemList?
     
     var prosWeight = 0
     var consWeight = 0
@@ -109,6 +105,7 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         
         present(alertController, animated: true, completion: nil)
     }
+    
     
     
     var pros = [PCItem]()
@@ -222,9 +219,9 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableViewAutomaticDimension
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var pro: PCItem?
@@ -241,6 +238,7 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "addProCell", for: indexPath) as? AddNewTableViewCell else { return AddNewTableViewCell() }
                 
                 cell.delegate = self
+                cell.setAddProButtonProperties()
                 
                 return cell
             }
@@ -254,6 +252,7 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "addConCell", for: indexPath) as? AddNewTableViewCell else { return AddNewTableViewCell() }
                 
                 cell.delegate = self
+                cell.setAddConButtonProperties()
                 
                 return cell
             }
@@ -265,6 +264,8 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PCItemTableViewCell else { return PCItemTableViewCell() }
         
         guard let pcItem = pro ?? con else { return PCItemTableViewCell() }
+        
+        
         
         cell.update(withItem: pcItem)
         
