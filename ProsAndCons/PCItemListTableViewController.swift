@@ -46,6 +46,7 @@ class PCItemListTableViewController: UITableViewController {
         
         alertController.addTextField { (newTextField: UITextField) in
             newTextField.placeholder = "List Name"
+            newTextField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
         }
  
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -67,8 +68,21 @@ class PCItemListTableViewController: UITableViewController {
             }
         }))
         
+        alertController.actions[1].isEnabled = false
         present(alertController, animated: true, completion: nil)
     }
+    
+    func textChanged(_ sender: Any) {
+        let tf = sender as? UITextField
+        var resp: UIResponder! = tf
+        
+        while !(resp is UIAlertController) { resp = resp.next }
+        let alert = resp as! UIAlertController
+        
+        alert.actions[1].isEnabled = (tf?.text != "" && tf?.text != nil)
+        
+    }
+
 
     // MARK: - Table view data source
 
