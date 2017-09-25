@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class PCItemViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, AddNewTableViewCellDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class PCItemViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet var weightPicker: UIPickerView!
     
@@ -20,6 +20,9 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var consWeightTotalLabel: UILabel!
     
     @IBOutlet weak var addProButton: UIButton!
+    @IBOutlet weak var addConButton: UIButton!
+    
+    @IBOutlet weak var weightTotal: UILabel!
     
     var alertController = UIAlertController()
     
@@ -33,44 +36,7 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     let weightPickerData = ["Select A Weight", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     
     
-    func addProButtonTapped(_ sender: AddNewTableViewCell) {
-        self.alertController = UIAlertController(title: "Add New Pro", message: "Type your pro here:", preferredStyle: .alert)
-        
-        alertController.addTextField { (newTextField: UITextField) in
-            newTextField.placeholder = "Pro Name"
-        }
-        
-        
-        alertController.addTextField { (newTextField: UITextField) in
-            newTextField.placeholder = "Weight"
-            newTextField.inputView = self.weightPicker
-            
-        }
-        
-        
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_ : UIAlertAction) in
-            self.weightPicker.selectRow(0, inComponent: 0, animated: true)
-        }))
-        
-        
-        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_ : UIAlertAction) in
-            
-            if let nameTextField = self.alertController.textFields?.first, let weightTextField = self.alertController.textFields?.last {
-                let name = nameTextField.text ?? ""
-                let weight = weightTextField.text ?? ""
-                
-                if let weight = Int16(weight), let pcItemList = self.pcItemList {
-                    self.pcItemController.add(PCItemWithName: name, weight: weight, proCon: true, pcItemList: pcItemList)
-                }
-                
-                DispatchQueue.main.async(execute: {
-                    self.reloadTables()
-                })
-            }
-        }))
-        
-        present(alertController, animated: true, completion: nil)
-    }
+   
     
     
     
@@ -79,6 +45,8 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         
         alertController.addTextField { (newTextField: UITextField) in
             newTextField.placeholder = "Pro Name"
+            
+            newTextField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
         }
         
         
@@ -94,7 +62,7 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         }))
         
         
-        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_ : UIAlertAction) in
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (_ : UIAlertAction) in
             
             if let nameTextField = self.alertController.textFields?.first, let weightTextField = self.alertController.textFields?.last {
                 let name = nameTextField.text ?? ""
@@ -108,15 +76,17 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
                     self.reloadTables()
                 })
             }
-        }))
+        })
+       
+        alertController.addAction(saveAction)
+        saveAction.isEnabled = false
         
         present(alertController, animated: true, completion: nil)
     }
 
     
+    @IBAction func addConButtonTap(_ sender: Any) {
     
-    func addConButtonTapped(_ sender: AddNewTableViewCell) {
-        
         self.alertController = UIAlertController(title: "Add New Con", message: "Type your con here:", preferredStyle: .alert)
         
         alertController.addTextField { (newTextField: UITextField) in
@@ -153,15 +123,101 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
                 }
             }
         })
+      
         alertController.addAction(saveAction)
-        
         saveAction.isEnabled = false
         
         present(alertController, animated: true, completion: nil)
-        
     }
     
-    func textChanged() {
+    
+//    func addProButtonTapped(_ sender: AddNewTableViewCell) {
+//        self.alertController = UIAlertController(title: "Add New Pro", message: "Type your pro here:", preferredStyle: .alert)
+//
+//        alertController.addTextField { (newTextField: UITextField) in
+//            newTextField.placeholder = "Pro Name"
+//        }
+//
+//
+//        alertController.addTextField { (newTextField: UITextField) in
+//            newTextField.placeholder = "Weight"
+//            newTextField.inputView = self.weightPicker
+//
+//        }
+//
+//
+//        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_ : UIAlertAction) in
+//            self.weightPicker.selectRow(0, inComponent: 0, animated: true)
+//        }))
+//
+//
+//        alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_ : UIAlertAction) in
+//
+//            if let nameTextField = self.alertController.textFields?.first, let weightTextField = self.alertController.textFields?.last {
+//                let name = nameTextField.text ?? ""
+//                let weight = weightTextField.text ?? ""
+//
+//                if let weight = Int16(weight), let pcItemList = self.pcItemList {
+//                    self.pcItemController.add(PCItemWithName: name, weight: weight, proCon: true, pcItemList: pcItemList)
+//                }
+//
+//                DispatchQueue.main.async(execute: {
+//                    self.reloadTables()
+//                })
+//            }
+//        }))
+//
+//        present(alertController, animated: true, completion: nil)
+//    }
+//
+//    func addConButtonTapped(_ sender: AddNewTableViewCell) {
+//
+//        self.alertController = UIAlertController(title: "Add New Con", message: "Type your con here:", preferredStyle: .alert)
+//
+//        alertController.addTextField { (newTextField: UITextField) in
+//            newTextField.placeholder = "Con Name"
+//
+//            newTextField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
+//        }
+//
+//        alertController.addTextField { (newTextField: UITextField) in
+//            newTextField.inputView = self.weightPicker
+//            newTextField.placeholder = "Weight"
+//        }
+//
+//        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_ : UIAlertAction) in
+//            self.weightPicker.selectRow(0, inComponent: 0, animated: true)
+//        }))
+//
+//        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { (_ : UIAlertAction) in
+//
+//            if let nameTextField = self.alertController.textFields?.first, let weightTextField = self.alertController.textFields?.last {
+//
+//                let name = nameTextField.text ?? ""
+//                let weight = weightTextField.text ?? ""
+//
+//                if !name.isEmpty || !weight.isEmpty {
+//
+//                    if let weight = Int16(weight), let pcItemList = self.pcItemList {
+//                        self.pcItemController.add(PCItemWithName: name, weight: weight, proCon: false, pcItemList: pcItemList)
+//                    }
+//
+//                    DispatchQueue.main.async(execute: {
+//                        self.reloadTables()
+//                    })
+//                }
+//            }
+//        })
+//        alertController.addAction(saveAction)
+//
+//        saveAction.isEnabled = false
+//
+//        present(alertController, animated: true, completion: nil)
+//
+//    }
+    
+    
+    @objc func textChanged() {
         var enableSave = true
         alertController.textFields?.forEach { textField in
             if textField.text == nil || textField.text == "" {
@@ -170,8 +226,6 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         }
         alertController.actions.last?.isEnabled = enableSave
     }
-    
-    
     
     var pros = [PCItem]()
     var cons = [PCItem]()
@@ -189,7 +243,15 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         
         title = pcItemList?.name
         
-        addProButton.layer.borderColor = #colorLiteral(red: 0.7117882425, green: 0.8562296149, blue: 0.9285945596, alpha: 1).cgColor
+        addProButton.layer.borderColor = UIColor.appYellow.cgColor
+        addConButton.layer.borderColor = UIColor.appYellow.cgColor
+        
+        addProButton.setTitleColor(.appYellow, for: .normal)
+        addConButton.setTitleColor(.appYellow, for: .normal)
+    
+        
+        weightTotal.layer.cornerRadius = weightTotal.frame.width/2
+        
         
         reloadTables()
     }
@@ -197,8 +259,8 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        reloadTables()
         
+        reloadTables()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -242,21 +304,23 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         
         if pros.count == 0 && cons.count == 0 {
             pcItemList?.weightPlusMinus = "-"
+            weightTotal.text = "-"
         } else {
             pcItemList?.weightPlusMinus = String(proWeight - conWeight)
+            weightTotal.text = String(proWeight - conWeight)
         }
         
         PCItemListController.shared.saveToPersistentStorage()
-        
-        if proWeight > conWeight {
-            prosWeightTotalLabel.textColor = #colorLiteral(red: 0, green: 0.5836070843, blue: 0.3329543817, alpha: 1)
-            consWeightTotalLabel.textColor = #colorLiteral(red: 0.8588235294, green: 0.1416355417, blue: 0.06344364766, alpha: 1)
-        } else if conWeight > proWeight {
-            consWeightTotalLabel.textColor = #colorLiteral(red: 0, green: 0.5836070843, blue: 0.3329543817, alpha: 1)
-            prosWeightTotalLabel.textColor = #colorLiteral(red: 0.8588235294, green: 0.1416355417, blue: 0.06344364766, alpha: 1)
+
+        if proWeight - conWeight > 0 {
+            weightTotal.textColor = #colorLiteral(red: 0, green: 0.5836070843, blue: 0.3329543817, alpha: 1)
+            weightTotal.layer.borderColor = #colorLiteral(red: 0, green: 0.5836070843, blue: 0.3329543817, alpha: 1).cgColor
+        } else if proWeight - conWeight < 0 {
+            weightTotal.textColor = #colorLiteral(red: 0.8588235294, green: 0.1416355417, blue: 0.06344364766, alpha: 1)
+            weightTotal.layer.borderColor = #colorLiteral(red: 0.8588235294, green: 0.1416355417, blue: 0.06344364766, alpha: 1).cgColor
         } else {
-            consWeightTotalLabel.textColor = #colorLiteral(red: 1, green: 0.5564047739, blue: 0.01442946099, alpha: 1)
-            prosWeightTotalLabel.textColor = #colorLiteral(red: 1, green: 0.5564047739, blue: 0.01442946099, alpha: 1)
+            weightTotal.textColor = #colorLiteral(red: 1, green: 0.5564047739, blue: 0.01442946099, alpha: 1)
+            weightTotal.layer.borderColor = #colorLiteral(red: 1, green: 0.5564047739, blue: 0.01442946099, alpha: 1).cgColor
         }
         
     }
@@ -275,14 +339,15 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         reloadWeights()
         
         weightPicker.selectRow(0, inComponent: 0, animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if tableView == prosTableView {
-            return self.pros.count
+            return self.pros.count // + 1
         } else {
-            return cons.count + 1
+            return cons.count //+ 1
         }
         
     }
@@ -294,10 +359,6 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var pro: PCItem?
         var con: PCItem?
-        //        var name: String?
-        //        var weight: String?
-        
-        
         
         if tableView == prosTableView {
             
@@ -315,15 +376,15 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
             
         } else {
             
-            if indexPath.row == (cons.count) {
-                
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "addConCell", for: indexPath) as? AddNewTableViewCell else { return AddNewTableViewCell() }
-                
-                cell.delegate = self
-                cell.setAddConButtonProperties()
-                
-                return cell
-            }
+//            if indexPath.row == (cons.count) {
+//
+//                guard let cell = tableView.dequeueReusableCell(withIdentifier: "addConCell", for: indexPath) as? AddNewTableViewCell else { return AddNewTableViewCell() }
+//
+//                cell.delegate = self
+//                cell.setAddConButtonProperties()
+//
+//                return cell
+//            }
             
             con = cons[indexPath.row]
             

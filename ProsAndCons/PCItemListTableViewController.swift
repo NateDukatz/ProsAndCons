@@ -18,9 +18,19 @@ class PCItemListTableViewController: UITableViewController {
 //        pcItemLists = PCItemListController.shared.pcItemLists.sorted(by: { $0.order < $1.order })
 //    }
     
+    var searchController = UISearchController()
+    var resultsController = UITableViewController()
+    var filteredArray = [String]()
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        searchController = UISearchController(searchResultsController: resultsController)
+//        tableView.tableHeaderView = searchController.searchBar
+//        searchController.searchResultsUpdater = self
+//
+//        resultsController.tableView.delegate = self
+//        resultsController.tableView.dataSource = self
         
         let label = UILabel()
         label.numberOfLines = 1
@@ -28,12 +38,25 @@ class PCItemListTableViewController: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         
         tableView.tableFooterView = UIView()
+        
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "stars"), for: .default)
 
         //PCItemListController.shared.fetchedResultsController.delegate = self
         
 //       reloadArray()
         
     }
+    
+//    func updateSearchResults(for searchController: UISearchController) {
+//        filteredArray = Array.filter({ (array: String) -> Bool in
+//            if array.contains(searchController.searchBar.text) {
+//                return true
+//            } else {
+//                return false
+//            }
+//        })
+//        resultsController.tableView.reloadData()
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -57,14 +80,18 @@ class PCItemListTableViewController: UITableViewController {
                 let name = nameTextField.text ?? ""
                 let order = Int16(PCItemListController.shared.pcItemLists.count)
                 
-                PCItemListController.shared.create(PCItemListWithName: name, order: order)
+                let pcItemList = PCItemListController.shared.create(PCItemListWithName: name, order: order)
                 
 //                self.reloadArray()
+                guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PCItemViewController") as? PCItemViewController else { return }
+                viewController.pcItemList = pcItemList
+                self.navigationController?.pushViewController(viewController, animated: true)
                 
                 DispatchQueue.main.async(execute: {
                     self.tableView.insertRows(at: [IndexPath(row: Int(order), section: 0)], with: .automatic)
 //                    self.tableView.reloadData()
                 })
+                
             }
         }))
         
@@ -72,7 +99,7 @@ class PCItemListTableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
     }
     
-    func textChanged(_ sender: Any) {
+    @objc func textChanged(_ sender: Any) {
         let tf = sender as? UITextField
         var resp: UIResponder! = tf
         
@@ -122,10 +149,9 @@ class PCItemListTableViewController: UITableViewController {
             PCItemListController.shared.delete(pcItemList: pcItemList)
 //            reloadArray()
             tableView.deleteRows(at: [indexPath], with: .fade)
-           
+
         }
     }
- 
 
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         
@@ -150,7 +176,6 @@ class PCItemListTableViewController: UITableViewController {
        
     }
  
-
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
