@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13240" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="PCItem" representedClassName="PCItem" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="proCon" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
@@ -7,7 +7,7 @@
         <relationship name="pcItemList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PCItemList" inverseName="pcItems" inverseEntity="PCItemList" syncable="YES"/>
     </entity>
     <entity name="PCItemList" representedClassName="PCItemList" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weightPlusMinus" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="pcItems" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="PCItem" inverseName="pcItemList" inverseEntity="PCItem" syncable="YES"/>

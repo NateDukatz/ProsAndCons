@@ -8,29 +8,38 @@
 
 import UIKit
 import CoreData
+import MobileCoreServices
 
-class PCItemListTableViewController: UITableViewController {
-
-//    var pcItemLists = [PCItemList]()
-//    
-//    func reloadArray() {
-//        pcItemLists = PCItemListController.shared.pcItemLists
-//        pcItemLists = PCItemListController.shared.pcItemLists.sorted(by: { $0.order < $1.order })
-//    }
+class PCItemListTableViewController: UITableViewController, UISearchResultsUpdating, NSFetchedResultsControllerDelegate {
     
     var searchController = UISearchController()
-    var resultsController = UITableViewController()
-    var filteredArray = [String]()
-   
+    var filteredArray = [PCItemList]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        searchController = UISearchController(searchResultsController: resultsController)
-//        tableView.tableHeaderView = searchController.searchBar
-//        searchController.searchResultsUpdater = self
-//
-//        resultsController.tableView.delegate = self
-//        resultsController.tableView.dataSource = self
+        resetArray()
+        
+        if #available(iOS 11.0, *) {
+            tableView.dragDelegate = self
+            tableView.dropDelegate = self
+            tableView.dragInteractionEnabled = true
+        }
+        
+        // MARK: - Search Bar
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.barTintColor = .appBlue
+        searchController.searchBar.barStyle = .black
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.tintColor = .appYellow
+        // searchController.searchBar.searchBarStyle = .prominent
+        if #available(iOS 11.0, *) {
+            navigationItem.searchController = searchController
+        } else {
+            tableView.tableHeaderView = searchController.searchBar
+        }
         
         let label = UILabel()
         label.numberOfLines = 1
@@ -39,59 +48,72 @@ class PCItemListTableViewController: UITableViewController {
         
         tableView.tableFooterView = UIView()
         
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "stars"), for: .default)
-
-        //PCItemListController.shared.fetchedResultsController.delegate = self
+        //        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "stars"), for: .default)
         
-//       reloadArray()
-        
+        PCItemListController.shared.fetchedResultsController.delegate = self
     }
     
-//    func updateSearchResults(for searchController: UISearchController) {
-//        filteredArray = Array.filter({ (array: String) -> Bool in
-//            if array.contains(searchController.searchBar.text) {
-//                return true
-//            } else {
-//                return false
-//            }
-//        })
-//        resultsController.tableView.reloadData()
-//    }
+    func resetArray() {
+        do {
+            try PCItemListController.shared.fetchedResultsController.performFetch()
+        } catch {
+            NSLog("Error fetching PCItems")
+        }
+        
+        guard let objectArray = PCItemListController.shared.fetchedResultsController.fetchedObjects else { return }
+        filteredArray = objectArray.sorted(by: { $0.order < $1.order })
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        defer {
+            tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        }
+        guard let text = searchController.searchBar.text, let objectArray = PCItemListController.shared.fetchedResultsController.fetchedObjects,!text.characters.isEmpty else { resetArray(); return }
+        filteredArray = objectArray.filter({ (pcItemList: PCItemList) -> Bool in
+            guard let name = pcItemList.name else { return false }
+            if (name.lowercased().contains(text.lowercased())) {
+                return true
+            } else {
+                return false
+            }
+        })
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        //        if searchController.isActive == true {
+        //            self.navigationController?.isNavigationBarHidden = false
+        //        }
     }
-
-    @IBAction func addNewListButtonTapped(_ sender: Any) {
     
-        let alertController = UIAlertController(title: "Add New List", message: "Type your list name here:", preferredStyle: .alert)
+    @IBAction func addNewListButtonTapped(_ sender: Any) {
+        
+        let alertController = UIAlertController(title: "Add New List", message: nil, preferredStyle: .alert)
         
         alertController.addTextField { (newTextField: UITextField) in
             newTextField.placeholder = "List Name"
             newTextField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
         }
- 
+        
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_ : UIAlertAction) in
             
             if let nameTextField = alertController.textFields?.first {
                 let name = nameTextField.text ?? ""
-                let order = Int16(PCItemListController.shared.pcItemLists.count)
+                let order = Int16(self.filteredArray.count)
                 
                 let pcItemList = PCItemListController.shared.create(PCItemListWithName: name, order: order)
-                
-//                self.reloadArray()
-                guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PCItemViewController") as? PCItemViewController else { return }
-                viewController.pcItemList = pcItemList
-                self.navigationController?.pushViewController(viewController, animated: true)
+                self.resetArray()
                 
                 DispatchQueue.main.async(execute: {
                     self.tableView.insertRows(at: [IndexPath(row: Int(order), section: 0)], with: .automatic)
-//                    self.tableView.reloadData()
+                    self.tableView.reloadData()
                 })
-                
+                guard let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PCItemViewController") as? PCItemViewController else { return }
+                viewController.pcItemList = pcItemList
+                self.navigationController?.pushViewController(viewController, animated: true)
             }
         }))
         
@@ -109,134 +131,190 @@ class PCItemListTableViewController: UITableViewController {
         alert.actions[1].isEnabled = (tf?.text != "" && tf?.text != nil)
         
     }
-
-
+    
+    
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return PCItemListController.shared.pcItemLists.count
-
+        return filteredArray.count
     }
     
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PCItemListCell", for: indexPath) as? PCItemListTableViewCell else { return PCItemListTableViewCell() }
         
-        let pcItemList = PCItemListController.shared.pcItemLists[indexPath.row]
-
+        let pcItemList = filteredArray[indexPath.row]
         
         cell.update(withList: pcItemList)
         
-
+        
         return cell
+        
     }
- 
-
     
-    // Override to support conditional editing of the table view.
+    
+    // MARK: - Editing functions
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+        
         return true
     }
- 
-
     
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-           // guard let pcItemLists = PCItemListController.shared.fetchedResultsController.fetchedObjects else { return }
-            let pcItemList = PCItemListController.shared.pcItemLists[indexPath.row]
-            PCItemListController.shared.delete(pcItemList: pcItemList)
-//            reloadArray()
-            tableView.deleteRows(at: [indexPath], with: .fade)
-
-        }
-    }
-
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         
-//        let pcItemList1 = PCItemListController.shared.fetchedResultsController.object(at: fromIndexPath)
-//        let pcItemList2 = PCItemListController.shared.fetchedResultsController.object(at: to)
+        let pcItemList = filteredArray[fromIndexPath.row]
         
-        let pcItemList1 = PCItemListController.shared.pcItemLists[fromIndexPath.row]
-        let pcItemList2 = PCItemListController.shared.pcItemLists[to.row]
-       
-        let temp = pcItemList1.order
-        pcItemList1.order = pcItemList2.order
-        pcItemList2.order = temp
+        filteredArray.remove(at: fromIndexPath.row)
+        filteredArray.insert(pcItemList, at: to.row)
+        
+        
+        
+        for (index, pcItemList) in filteredArray.enumerated() {
+            pcItemList.order = Int16(index)
+            guard let objectIndexPath = PCItemListController.shared.fetchedResultsController.indexPath(forObject: pcItemList) else { return }
+            PCItemListController.shared.fetchedResultsController.object(at: objectIndexPath).name = pcItemList.name
+            PCItemListController.shared.fetchedResultsController.object(at: objectIndexPath).order = pcItemList.order
+        }
         
         PCItemListController.shared.saveToPersistentStorage()
+        self.resetArray()
         
-//        let pcItemList = pcItemLists[fromIndexPath.row]
-//        pcItemLists.remove(at: fromIndexPath.row)
-//        PCItemListController.shared.delete(pcItemList: pcItemList)
-//        pcItemLists.insert(pcItemList, at: to.row)
-        
-        //tableView.moveRow(at: fromIndexPath, to: to)
-       
     }
- 
+    
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
- 
-
+    
+    // PRE iOS 11 Delete
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "🗑") { _, indexPath in
+            let pcItemList = self.filteredArray[indexPath.row]
+            self.filteredArray.remove(at: indexPath.row)
+            PCItemListController.shared.delete(pcItemList: pcItemList)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.resetArray()
+        }
+        deleteAction.backgroundColor = #colorLiteral(red: 0.9994946122, green: 0.3439007401, blue: 0.3113242984, alpha: 1)
+        return [deleteAction]
+    }
+    
+    // Old Delete
+    // Override to support editing the table view.
+    //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    //        if editingStyle == .delete {
+    //           // guard let pcItemLists = PCItemListController.shared.fetchedResultsController.fetchedObjects else { return }
+    //            let pcItemList = filteredArray[indexPath.row]
+    //
+    //            PCItemListController.shared.delete(pcItemList: pcItemList)
+    //            filteredArray.remove(at: indexPath.row)
+    //            tableView.deleteRows(at: [indexPath], with: .fade)
+    ////            reloadArray()
+    //
+    //
+    //        }
+    //    }
+    
     
     // MARK: - Navigation
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "ToPCItemList", let indexPath = tableView.indexPathForSelectedRow {
-            let pcItemLists = PCItemListController.shared.pcItemLists
+            let pcItemLists = filteredArray
             let pcItemList = pcItemLists[indexPath.row]
             
             let pcItemVC = segue.destination as? PCItemViewController
             
             pcItemVC?.pcItemList = pcItemList
+            
+            searchController.searchBar.resignFirstResponder()
         }
     }
     
     // MARK: - NSFetchedResultsControllerDelegate
+    //    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    //        tableView.beginUpdates()
+    //    }
+    //
+    //    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    //        switch type {
+    //        case .delete:
+    //            guard let indexPath = indexPath else { return }
+    //            tableView.deleteRows(at: [indexPath], with: .fade)
+    //        case .insert:
+    //            guard let newIndexPath = newIndexPath else { return }
+    //            tableView.insertRows(at: [newIndexPath], with: .automatic)
+    //        case .move:
+    //            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
+    //            tableView.moveRow(at: indexPath, to: newIndexPath)
+    //            print("move")
+    //        case .update:
+    //            guard let indexPath = indexPath else { return }
+    //            tableView.reloadRows(at: [indexPath], with: .automatic)
+    //        }
+    //    }
+    //
+    //    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+    //        switch type {
+    //        case .insert:
+    //            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
+    //        case .delete:
+    //            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
+    //        default:
+    //            break
+    //
+    //        }
+    //    }
+    //
+    //    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    //        tableView.endUpdates()
+    //    }
     
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        tableView.beginUpdates()
-//    }
-//    
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-//        switch type {
-//        case .delete:
-//            guard let indexPath = indexPath else { return }
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-//        case .insert:
-//            guard let newIndexPath = newIndexPath else { return }
-//            tableView.insertRows(at: [newIndexPath], with: .automatic)
-//        case .move:
-//            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
-//            tableView.moveRow(at: indexPath, to: newIndexPath)
-//            print("move")
-//        case .update:
-//            guard let indexPath = indexPath else { return }
-//            tableView.reloadRows(at: [indexPath], with: .automatic)
-//        }
-//    }
-//    
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-//        switch type {
-//        case .insert:
-//            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
-//        case .delete:
-//            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
-//        default:
-//            break
-//            
-//        }
-//    }
-//    
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        tableView.endUpdates()
-//    }
-
-
-
 }
+
+//MARK: - iOS 11 swipe and drag
+@available(iOS 11.0, *)
+extension PCItemListTableViewController: UITableViewDragDelegate, UITableViewDropDelegate {
+    
+    //ios 11 delete, not currently working correctly
+    //    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    //        let delete = UIContextualAction(style: .destructive, title: "🗑") { (_, _, _) in
+    //            let pcItemList = self.filteredArray[indexPath.row]
+    //            self.filteredArray.remove(at: indexPath.row)
+    //            PCItemListController.shared.delete(pcItemList: pcItemList)
+    //            self.tableView.deleteRows(at: [indexPath], with: .fade)
+    //
+    //        }
+    //       delete.backgroundColor = #colorLiteral(red: 1, green: 0.3442174489, blue: 0.3098530093, alpha: 1)
+    //
+    //        return UISwipeActionsConfiguration(actions: [delete])
+    //    }
+    
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        let pcItemList = filteredArray[indexPath.row]
+        let data = pcItemList.description.data(using: .utf8)
+        let itemProvider = NSItemProvider()
+        
+        itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String, visibility: .all) { completion in
+            completion(data, nil)
+            return nil
+        }
+        
+        return [UIDragItem(itemProvider: itemProvider)]
+    }
+    
+    func tableView(_ tableView: UITableView, dragSessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        // Do nothing for now and take advantage of tableView(moveAt:to:)
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        return UITableViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
+    }
+}
+

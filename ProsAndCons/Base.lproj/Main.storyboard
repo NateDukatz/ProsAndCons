@@ -17,7 +17,7 @@
         <!--PC Item List Table View Controller-->
         <scene sceneID="Qrd-af-oxc">
             <objects>
-                <tableViewController id="M0o-Oi-2uo" userLabel="PC Item List Table View Controller" customClass="PCItemListTableViewController" customModule="ProsAndCons" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PCItemListTableView" id="M0o-Oi-2uo" userLabel="PC Item List Table View Controller" customClass="PCItemListTableViewController" customModule="ProsAndCons" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="Kqb-pd-hHH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -13,26 +13,26 @@ class PCItemListController {
     
     static let shared = PCItemListController()
     
-    //let fetchedResultsController: NSFetchedResultsController<PCItemList>
-    
-    var pcItemLists: [PCItemList] {
-        
+    let fetchedResultsController: NSFetchedResultsController<PCItemList>
+   
+    //commented code is for putting fetched results into an array
+    //var pcItemLists: [PCItemList] {
+    init() {
         let fetchRequest: NSFetchRequest<PCItemList> = PCItemList.fetchRequest()
+
+        //var results = [PCItemList]()
         
-        var results = [PCItemList]()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
         
-        //fetchRequest.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
-        //fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-        
-        CoreDataStack.container.viewContext.performAndWait {
+       // CoreDataStack.container.viewContext.performAndWait {
             do {
-                results = try fetchRequest.execute()
-                //try fetchedResultsController.performFetch()
+                try fetchedResultsController.performFetch()
             } catch {
                 NSLog("Error fetching PCItems")
             }
-        }
-        return results
+       // }
+       // return results
     }
     
     @discardableResult func create(PCItemListWithName name: String, order: Int16, weightPlusMinus: String = "-") -> PCItemList {
