@@ -66,8 +66,21 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.isNavigationBarHidden = false
+        //self.navigationController?.isNavigationBarHidden = false
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.enableAllOrientation = true
+        
         reloadTables()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        appDelegate?.enableAllOrientation = true
+        
+        let value = UIInterfaceOrientation.portrait.rawValue
+        UIDevice.current.setValue(value, forKey: "orientation")
     }
     
     func reloadTables() {
@@ -306,27 +319,52 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if tableView == prosTableView {
-                let pcItem = pros[indexPath.row]
-                pcItemController.delete(pcItem: pcItem)
-                pros.remove(at: indexPath.row)
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            if tableView == prosTableView {
+//                let pcItem = pros[indexPath.row]
+//                pcItemController.delete(pcItem: pcItem)
+//                pros.remove(at: indexPath.row)
+//
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+//
+//                reloadWeights()
+//
+//            } else {
+//                let pcItem = cons[indexPath.row]
+//                pcItemController.delete(pcItem: pcItem)
+//                cons.remove(at: indexPath.row)
+//
+//                tableView.deleteRows(at: [indexPath], with: .fade)
+//
+//                reloadWeights()
+//            }
+//        }
+//    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "🗑") { _, indexPath in
+            if tableView == self.prosTableView {
+                let pcItem = self.pros[indexPath.row]
+                self.pcItemController.delete(pcItem: pcItem)
+                self.pros.remove(at: indexPath.row)
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 
-                reloadWeights()
+                self.reloadWeights()
                 
             } else {
-                let pcItem = cons[indexPath.row]
-                pcItemController.delete(pcItem: pcItem)
-                cons.remove(at: indexPath.row)
+                let pcItem = self.cons[indexPath.row]
+                self.pcItemController.delete(pcItem: pcItem)
+                self.cons.remove(at: indexPath.row)
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 
-                reloadWeights()
+                self.reloadWeights()
             }
         }
+        deleteAction.backgroundColor = #colorLiteral(red: 0.9994946122, green: 0.3439007401, blue: 0.3113242984, alpha: 1)
+        return [deleteAction]
     }
 }
 

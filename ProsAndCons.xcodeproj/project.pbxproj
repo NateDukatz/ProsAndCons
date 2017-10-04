@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		430084261F53801F003931D7 /* PCItemListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430084251F53801F003931D7 /* PCItemListTableViewCell.swift */; };
+		432A58911F80B1090090B80A /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 432A58901F80B1090090B80A /* LaunchScreenViewController.swift */; };
 		4365CEFB1F453C97003BC19C /* PCItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4365CEFA1F453C97003BC19C /* PCItemTableViewCell.swift */; };
 		438B45541F3D73C3003BD694 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438B45531F3D73C3003BD694 /* AppDelegate.swift */; };
 		438B45591F3D73C3003BD694 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 438B45571F3D73C3003BD694 /* Main.storyboard */; };
@@ -20,7 +21,7 @@
 		438B45711F3D75D4003BD694 /* PCItemController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 438B45701F3D75D4003BD694 /* PCItemController.swift */; };
 		43C7F55E1F4B64C4005CCB79 /* AddNewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7F55D1F4B64C4005CCB79 /* AddNewTableViewCell.swift */; };
 		43C7F5601F4D2500005CCB79 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7F55F1F4D2500005CCB79 /* ModalViewController.swift */; };
-		43C7F5621F4F62F7005CCB79 /* PCItemListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7F5611F4F62F7005CCB79 /* PCItemListTableViewController.swift */; };
+		43C7F5621F4F62F7005CCB79 /* PCItemListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7F5611F4F62F7005CCB79 /* PCItemListViewController.swift */; };
 		43C7F5641F4F642A005CCB79 /* PCItemListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7F5631F4F642A005CCB79 /* PCItemListController.swift */; };
 		43C7F5661F4F962B005CCB79 /* PCItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C7F5651F4F962B005CCB79 /* PCItemList.swift */; };
 		43D3B8731F76D4210027E442 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D3B8721F76D4210027E442 /* Theme.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		430084251F53801F003931D7 /* PCItemListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCItemListTableViewCell.swift; sourceTree = "<group>"; };
+		432A58901F80B1090090B80A /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		4365CEFA1F453C97003BC19C /* PCItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCItemTableViewCell.swift; sourceTree = "<group>"; };
 		438B45501F3D73C3003BD694 /* ProsAndCons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProsAndCons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		438B45531F3D73C3003BD694 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,7 +45,7 @@
 		438B45701F3D75D4003BD694 /* PCItemController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCItemController.swift; sourceTree = "<group>"; };
 		43C7F55D1F4B64C4005CCB79 /* AddNewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewTableViewCell.swift; sourceTree = "<group>"; };
 		43C7F55F1F4D2500005CCB79 /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
-		43C7F5611F4F62F7005CCB79 /* PCItemListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCItemListTableViewController.swift; sourceTree = "<group>"; };
+		43C7F5611F4F62F7005CCB79 /* PCItemListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCItemListViewController.swift; sourceTree = "<group>"; };
 		43C7F5631F4F642A005CCB79 /* PCItemListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCItemListController.swift; sourceTree = "<group>"; };
 		43C7F5651F4F962B005CCB79 /* PCItemList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCItemList.swift; sourceTree = "<group>"; };
 		43D3B8721F76D4210027E442 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				438B455F1F3D73C3003BD694 /* LaunchScreen.storyboard */,
 				438B45621F3D73C3003BD694 /* Info.plist */,
 				438B455A1F3D73C3003BD694 /* ProsAndCons.xcdatamodeld */,
+				432A58901F80B1090090B80A /* LaunchScreenViewController.swift */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -133,6 +136,7 @@
 		43C7F56B1F4F9796005CCB79 /* Currently Unused */ = {
 			isa = PBXGroup;
 			children = (
+				43C7F55D1F4B64C4005CCB79 /* AddNewTableViewCell.swift */,
 				43C7F55F1F4D2500005CCB79 /* ModalViewController.swift */,
 			);
 			name = "Currently Unused";
@@ -141,11 +145,10 @@
 		43C7F56C1F4F97CF005CCB79 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				43C7F55D1F4B64C4005CCB79 /* AddNewTableViewCell.swift */,
-				438B456A1F3D74E8003BD694 /* PCItemViewController.swift */,
-				43C7F5611F4F62F7005CCB79 /* PCItemListTableViewController.swift */,
-				4365CEFA1F453C97003BC19C /* PCItemTableViewCell.swift */,
 				430084251F53801F003931D7 /* PCItemListTableViewCell.swift */,
+				438B456A1F3D74E8003BD694 /* PCItemViewController.swift */,
+				43C7F5611F4F62F7005CCB79 /* PCItemListViewController.swift */,
+				4365CEFA1F453C97003BC19C /* PCItemTableViewCell.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -239,10 +242,11 @@
 				43C7F55E1F4B64C4005CCB79 /* AddNewTableViewCell.swift in Sources */,
 				438B455C1F3D73C3003BD694 /* ProsAndCons.xcdatamodeld in Sources */,
 				438B456D1F3D7589003BD694 /* PCItem.swift in Sources */,
-				43C7F5621F4F62F7005CCB79 /* PCItemListTableViewController.swift in Sources */,
+				43C7F5621F4F62F7005CCB79 /* PCItemListViewController.swift in Sources */,
 				43C7F5641F4F642A005CCB79 /* PCItemListController.swift in Sources */,
 				430084261F53801F003931D7 /* PCItemListTableViewCell.swift in Sources */,
 				438B45541F3D73C3003BD694 /* AppDelegate.swift in Sources */,
+				432A58911F80B1090090B80A /* LaunchScreenViewController.swift in Sources */,
 				43D3B8751F76D53F0027E442 /* Appearance.swift in Sources */,
 				4365CEFB1F453C97003BC19C /* PCItemTableViewCell.swift in Sources */,
 				43C7F5601F4D2500005CCB79 /* ModalViewController.swift in Sources */,
