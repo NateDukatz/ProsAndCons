@@ -11,7 +11,7 @@ import CoreData
 
 class PCItemController {
     
-    func add(PCItemWithName name: String, weight: Int16, proCon: Bool, pcItemList: PCItemList) {
+    func add(PCItemWithName name: String, weight: String, proCon: Bool, pcItemList: PCItemList) {
         
         let _ = PCItem(name: name, weight: weight, proCon: proCon, pcItemList: pcItemList)
         

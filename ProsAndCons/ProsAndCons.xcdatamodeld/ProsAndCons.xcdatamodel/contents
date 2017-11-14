@@ -3,10 +3,11 @@
     <entity name="PCItem" representedClassName="PCItem" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="proCon" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="weight" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="pcItemList" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PCItemList" inverseName="pcItems" inverseEntity="PCItemList" syncable="YES"/>
     </entity>
     <entity name="PCItemList" representedClassName="PCItemList" syncable="YES" codeGenerationType="class">
+        <attribute name="altWeightOption" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="order" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weightPlusMinus" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,6 +15,6 @@
     </entity>
     <elements>
         <element name="PCItem" positionX="-45" positionY="0" width="128" height="105"/>
-        <element name="PCItemList" positionX="-45" positionY="27" width="128" height="105"/>
+        <element name="PCItemList" positionX="-45" positionY="27" width="128" height="120"/>
     </elements>
 </model>

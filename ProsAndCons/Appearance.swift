@@ -15,5 +15,6 @@ enum Appearance {
         
         UINavigationBar.appearance().barTintColor = .appBlue
         UINavigationBar.appearance().tintColor = .appYellow
+        UIToolbar.appearance().tintColor = .appYellow
     }
 }

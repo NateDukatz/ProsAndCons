@@ -11,12 +11,13 @@ import CoreData
 
 extension PCItemList {
     
-    convenience init(name: String, weightPlusMinus: String, order: Int16, context: NSManagedObjectContext = CoreDataStack.context) {
+    convenience init(name: String, weightPlusMinus: String, order: Int16, altWeightOption: Bool, context: NSManagedObjectContext = CoreDataStack.context) {
         
         self.init(context: context)
         
         self.name = name
         self.weightPlusMinus = weightPlusMinus
         self.order = order
+        self.altWeightOption = altWeightOption
     }
 }

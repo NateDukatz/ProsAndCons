@@ -32,13 +32,19 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     var prosWeight = 0
     var consWeight = 0
     
-    let weightPickerData = ["Select A Weight", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    let altWeightPickerData = ["Select A Weight", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+    let weightPickerData = ["Select A Weight", "Low", "Medium", "High"]
     
     var pros = [PCItem]()
     var cons = [PCItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        } 
+        
         prosTableView.estimatedRowHeight = 50
         prosTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -101,32 +107,55 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func reloadWeights() {
-        var proWeight: Int = 0
+        var totalProWeight: Int = 0
+        var nextProWeight: Int = 0
         for pro in pros {
-            proWeight = proWeight + Int(pro.weight)
+            
+            if pro.weight == "L" {
+                nextProWeight = 1
+            } else if pro.weight == "M" {
+                nextProWeight = 2
+            } else if pro.weight == "H" {
+                nextProWeight = 3
+            }
+            
+            totalProWeight = totalProWeight + nextProWeight
+
         }
-        prosWeightTotalLabel.text = String(proWeight)
         
-        var conWeight: Int = 0
+        prosWeightTotalLabel.text = String(totalProWeight)
+        
+        var totalConWeight: Int = 0
+        var nextConWeight: Int = 0
         for con in cons {
-            conWeight = conWeight + Int(con.weight)
+            
+            if con.weight == "L" {
+                nextConWeight = 1
+            } else if con.weight == "M" {
+                nextConWeight = 2
+            } else if con.weight == "H" {
+                nextConWeight = 3
+            }
+            
+            totalConWeight = totalConWeight + nextConWeight
         }
-        consWeightTotalLabel.text = String(conWeight)
+        
+        consWeightTotalLabel.text = String(totalConWeight)
         
         if pros.count == 0 && cons.count == 0 {
             pcItemList?.weightPlusMinus = "-"
             weightTotal.text = "-"
         } else {
-            pcItemList?.weightPlusMinus = String(proWeight - conWeight)
-            weightTotal.text = String(proWeight - conWeight)
+            pcItemList?.weightPlusMinus = String(totalProWeight - totalConWeight)
+            weightTotal.text = String(totalProWeight - totalConWeight)
         }
         
         PCItemListController.shared.saveToPersistentStorage()
         
-        if proWeight - conWeight > 0 {
+        if totalProWeight - totalConWeight > 0 {
             weightTotal.textColor = #colorLiteral(red: 0, green: 0.5836070843, blue: 0.3329543817, alpha: 1)
             weightTotal.layer.borderColor = #colorLiteral(red: 0, green: 0.5836070843, blue: 0.3329543817, alpha: 1).cgColor
-        } else if proWeight - conWeight < 0 {
+        } else if totalProWeight - totalConWeight < 0 {
             weightTotal.textColor = #colorLiteral(red: 0.8588235294, green: 0.1416355417, blue: 0.06344364766, alpha: 1)
             weightTotal.layer.borderColor = #colorLiteral(red: 0.8588235294, green: 0.1416355417, blue: 0.06344364766, alpha: 1).cgColor
         } else {
@@ -159,9 +188,23 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
             
             if let nameTextField = self.alertController.textFields?.first, let weightTextField = self.alertController.textFields?.last {
                 let name = nameTextField.text ?? ""
-                let weight = weightTextField.text ?? ""
+                var weight = weightTextField.text ?? ""
+               
+                if self.pcItemList?.altWeightOption == false {
+                    switch (weight) {
+                    case "Low":
+                        weight = "L"
+                    case "Medium":
+                        weight = "M"
+                    case "High":
+                        weight = "H"
+                    default:
+                        weight = ""
+                    }
+                }
                 
-                if let weight = Int16(weight), let pcItemList = self.pcItemList {
+                if let pcItemList = self.pcItemList {
+                    
                     self.pcItemController.add(PCItemWithName: name, weight: weight, proCon: true, pcItemList: pcItemList)
                 }
                 
@@ -202,11 +245,24 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
             if let nameTextField = self.alertController.textFields?.first, let weightTextField = self.alertController.textFields?.last {
                 
                 let name = nameTextField.text ?? ""
-                let weight = weightTextField.text ?? ""
+                var weight = weightTextField.text ?? ""
+                
+                if self.pcItemList?.altWeightOption == false {
+                    switch (weight) {
+                    case "Low":
+                        weight = "L"
+                    case "Medium":
+                        weight = "M"
+                    case "High":
+                        weight = "H"
+                    default:
+                        weight = ""
+                    }
+                }
                 
                 if !name.isEmpty || !weight.isEmpty {
                     
-                    if let weight = Int16(weight), let pcItemList = self.pcItemList {
+                    if let pcItemList = self.pcItemList {
                         self.pcItemController.add(PCItemWithName: name, weight: weight, proCon: false, pcItemList: pcItemList)
                     }
                     
@@ -240,18 +296,30 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return weightPickerData.count
+        if pcItemList?.altWeightOption == true {
+            return altWeightPickerData.count
+        } else {
+            return weightPickerData.count
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(describing: weightPickerData[row])
+        if pcItemList?.altWeightOption == true {
+            return altWeightPickerData[row]
+        } else {
+            return weightPickerData[row]
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if let weightTextField = alertController.textFields?.last {
             if row != 0 {
-                weightTextField.text = self.weightPickerData[row]
+                if pcItemList?.altWeightOption == true {
+                    weightTextField.text = self.altWeightPickerData[row]
+                } else {
+                    weightTextField.text = self.weightPickerData[row]
+                }
             } else {
                 weightTextField.text = ""
             }
@@ -319,28 +387,28 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            if tableView == prosTableView {
-//                let pcItem = pros[indexPath.row]
-//                pcItemController.delete(pcItem: pcItem)
-//                pros.remove(at: indexPath.row)
-//
-//                tableView.deleteRows(at: [indexPath], with: .fade)
-//
-//                reloadWeights()
-//
-//            } else {
-//                let pcItem = cons[indexPath.row]
-//                pcItemController.delete(pcItem: pcItem)
-//                cons.remove(at: indexPath.row)
-//
-//                tableView.deleteRows(at: [indexPath], with: .fade)
-//
-//                reloadWeights()
-//            }
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    //        if editingStyle == .delete {
+    //            if tableView == prosTableView {
+    //                let pcItem = pros[indexPath.row]
+    //                pcItemController.delete(pcItem: pcItem)
+    //                pros.remove(at: indexPath.row)
+    //
+    //                tableView.deleteRows(at: [indexPath], with: .fade)
+    //
+    //                reloadWeights()
+    //
+    //            } else {
+    //                let pcItem = cons[indexPath.row]
+    //                pcItemController.delete(pcItem: pcItem)
+    //                cons.remove(at: indexPath.row)
+    //
+    //                tableView.deleteRows(at: [indexPath], with: .fade)
+    //
+    //                reloadWeights()
+    //            }
+    //        }
+    //    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "🗑") { _, indexPath in
@@ -365,6 +433,38 @@ class PCItemViewController: UIViewController, UITableViewDataSource, UITableView
         }
         deleteAction.backgroundColor = #colorLiteral(red: 0.9994946122, green: 0.3439007401, blue: 0.3113242984, alpha: 1)
         return [deleteAction]
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        
+        
+        if segue.identifier == "prosCellSegue" {
+            
+            
+            guard let indexPath = prosTableView.indexPathForSelectedRow else { return }
+            let pcItem = pros[indexPath.row]
+            let pcItemList = self.pcItemList
+            
+            let pcItemVC = segue.destination as? PCItemDetailTableViewController
+            
+            pcItemVC?.pcItem = pcItem
+            pcItemVC?.pcItemList = pcItemList
+        }
+        
+        if segue.identifier == "consCellSegue" {
+            
+            guard let indexPath = consTableView.indexPathForSelectedRow else { return }
+            let pcItem = cons[indexPath.row]
+            let pcItemList = self.pcItemList
+            
+            let pcItemVC = segue.destination as? PCItemDetailTableViewController
+            
+            pcItemVC?.pcItem = pcItem
+            pcItemVC?.pcItemList = pcItemList
+        }
+        
+        
     }
 }
 

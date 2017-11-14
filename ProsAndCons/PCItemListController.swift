@@ -35,8 +35,8 @@ class PCItemListController {
        // return results
     }
     
-    @discardableResult func create(PCItemListWithName name: String, order: Int16, weightPlusMinus: String = "-") -> PCItemList {
-        let pcItemList = PCItemList(name: name, weightPlusMinus: weightPlusMinus, order: order)
+    @discardableResult func create(PCItemListWithName name: String, order: Int16, weightPlusMinus: String = "-", altWeightOption: Bool) -> PCItemList {
+        let pcItemList = PCItemList(name: name, weightPlusMinus: weightPlusMinus, order: order, altWeightOption: altWeightOption)
         
         saveToPersistentStorage()
         

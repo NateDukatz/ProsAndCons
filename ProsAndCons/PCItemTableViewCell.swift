@@ -15,7 +15,7 @@ class PCItemTableViewCell: UITableViewCell {
     
     func update(withItem pcItem: PCItem) {
         nameLabel.text = pcItem.name
-        weightLabel.text = String(pcItem.weight)
+        weightLabel.text = pcItem.weight
 //        if pcItem.weight <= 3 {
 //            weightLabel.textColor = #colorLiteral(red: 0.8588235294, green: 0.1416355417, blue: 0.06344364766, alpha: 1)
 //        } else if pcItem.weight <= 7 {
